@@ -166,16 +166,6 @@ class ResponseBuilder
 	}
 
 	/**
-	 * @return array
-	 */
-	private function getPlatformMeta(): array
-	{
-		return [
-			'response_time' => 1000 * number_format((microtime(true) - LARAVEL_START), 2) . ' ms',
-		];
-	}
-
-	/**
 	 * @return Collection
 	 */
 	public function formPayload(): Collection
@@ -188,9 +178,7 @@ class ResponseBuilder
 			// merge errors
 			->when(!$this->success, fn($response) => $response->merge(['errors' => $this->errors]))
 			// merge meta
-			->merge($this->meta)
-			// merge platform meta
-			->merge($this->getPlatformMeta());
+			->merge($this->meta);
 	}
 
 	/**
